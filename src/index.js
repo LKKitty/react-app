@@ -33,6 +33,20 @@ const users = [
   { username: 'Lily', age: 19, gender: 'female' },
   { username: 'Lucy', age: 20, gender: 'female' }
 ]
+class User extends Component {
+  render (){
+    const {user} = this.props
+    console.log(user)
+    return (
+      <div>
+        <div>姓名：{user.username}</div>
+        <div>年龄：{user.age}</div>
+        <div>性别：{user.gender}</div>
+        <hr/>
+      </div>
+    )
+  }
+}
 class Index extends Component {
   constructor (){
     super()
@@ -48,31 +62,11 @@ class Index extends Component {
     })
   }
   render () {
-    // const usersElements = []
-    // for(let user of users) {
-    //   usersElements.push(
-    //     <div>
-    //       <div>姓名：{user.username}</div>
-    //       <div>年龄：{user.age}</div>
-    //       <div>性别：{user.gender}</div>
-    //       <hr/>
-    //     </div>
-    //   )
-    // }
     return (
-      <div>
-        {users.map((user) => {
-          return (
             <div>
-              <div>姓名：{user.username}</div>
-              <div>年龄：{user.age}</div>
-              <div>性别：{user.gender}</div>
-              <hr/>
+              {users.map((user,i) => <User key={i} user={user} />)}
             </div>
           )
-        })}
-      </div>
-    )
   }
 }
 ReactDOM.render(<Index />, document.getElementById('root'));
