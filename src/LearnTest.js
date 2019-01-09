@@ -41,6 +41,7 @@ class CommentApp extends Component {
             <div>开源、免费、专业、简单</div>
             订阅：<input type="text"/>
           </div>
+          <p>什么鬼</p>
         </PropsChildren>
       </div>
     )
