@@ -77,10 +77,15 @@
 // serviceWorker.unregister();
 import React from 'react'
 import ReactDOM from 'react-dom'
+// 评论显示页面
 import CommentApp from './CommentApp'
+// 练习显示页面
+import LearnTest from './LearnTest'
 import './index.css'
 
+
+
 ReactDOM.render(
-  <CommentApp />,
+  <LearnTest />,
   document.getElementById('root')
 )
