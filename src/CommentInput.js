@@ -1,6 +1,10 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 
 class CommentInput extends Component {
+  static propTypes ={
+    onSubmit:PropTypes.func
+  }
   constructor (){
     super()
     this.state = {
@@ -23,10 +27,32 @@ class CommentInput extends Component {
   // 点击提交
   handleSubmit (event) {
     if(this.props.onSubmit){
-      const {username,content} = this.state
-      this.props.onSubmit({username,content})
+      this.props.onSubmit({
+        username:this.state.username,
+        content:this.state.content,
+        createdTime: +new Date()
+      })
     }
     this.setState({content:''})
+  }
+  // 保存用户名
+  _saveUsername (username) {
+    localStorage.setItem('username',username)
+  }
+  // 加载用户名
+  _loadUsername () {
+    const username = localStorage.getItem('username')
+    if(username) {
+      this.setState({username})
+    }
+  }
+  // 即将加载
+  componentWillMount () {
+    this._loadUsername()
+  }
+  // 失去焦点
+  handleUsernameBlur (event) {
+    this._saveUsername(event.target.value)
   }
   render() {
     return (
@@ -36,6 +62,7 @@ class CommentInput extends Component {
           <div className='comment-field-input'>
             <input 
             value={this.state.username}
+            onBlur={this.handleUsernameBlur.bind(this)}
             onChange={this.handleUsernameChange.bind(this)}
             />
           </div>
@@ -44,6 +71,7 @@ class CommentInput extends Component {
           <span className='comment-field-name'>评论内容：</span>
           <div className='comment-field-input'>
             <textarea
+            ref={(textarea) => this.textarea = textarea}
             value={this.state.content}
             onChange={this.handleContentChange.bind(this)}
             />
@@ -57,6 +85,10 @@ class CommentInput extends Component {
         </div>
       </div>
     )
+  }
+  // 组件挂载完成
+  componentDidMount () {
+    this.textarea.focus()
   }
 }
 

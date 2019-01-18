@@ -86,6 +86,6 @@ import './index.css'
 
 
 ReactDOM.render(
-  <LearnTest />,
+  <CommentApp />,
   document.getElementById('root')
 )

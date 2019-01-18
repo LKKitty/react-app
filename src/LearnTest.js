@@ -40,6 +40,7 @@ class CommentApp extends Component {
             <h2>React.js 小书</h2>
             <div>开源、免费、专业、简单</div>
             订阅：<input type="text"/>
+            <p>测试</p>
           </div>
           <p>什么鬼</p>
         </PropsChildren>
