@@ -27,10 +27,20 @@ class Comment extends Component {
         : `${Math.round(Math.max(duration, 1))} 秒前`
     })
   }
+  // 删除
   handleDeleteComment () {
     if (this.props.onDeleteComment) {
       this.props.onDeleteComment(this.props.index)
     }
+  }
+  _getProcessedContent (content) {
+    return content
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;")
+    .replace(/`([\S\s]+?)`/g, '<code>$1</code>')
   }
   render () {
     const {comment} = this.props
@@ -39,7 +49,7 @@ class Comment extends Component {
         <div className='comment-user'>
           <span>{comment.username} </span>：
         </div>
-        <p>{comment.content}</p>
+        <p dangerouslySetInnerHTML={{__html: this._getProcessedContent(comment.content)}}></p>
         <span className='comment-createdtime'>
           {this.state.timeString}
         </span>
@@ -50,6 +60,10 @@ class Comment extends Component {
         </span>
       </div>
     )
+  }
+  // 删除之前
+  componentWillUnmount () {
+    clearInterval(this._timer)
   }
 }
 
